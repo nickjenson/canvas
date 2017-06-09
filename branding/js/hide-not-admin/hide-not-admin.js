@@ -1,4 +1,4 @@
-// hide targeted element from non-admin users
+// - JQuery is used throughout Canvas -- this hides a targeted element from non-admin users -
 
 $(document).ready(function() {
   if (window.location.pathname == "/courses/" + ENV.COURSE_ID + "/settings") {

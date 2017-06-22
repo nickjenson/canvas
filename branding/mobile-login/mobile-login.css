@@ -1,0 +1,19 @@
+/* - This stylizes the mobile login screen, as this is not currently available via the Theme Editor - */
+/* - Override Mobile Background Pattern - */
+html {
+    background-image: none;
+    background-color: #003359;
+}
+
+/* - Display Logo - */
+#f1_container {
+    background: url("") no-repeat center top;
+    background-size: 100% auto;
+    width: 302px;
+}
+
+/* - Forgot Password Link (optional)- */
+#f1_container a {
+    color: white;
+    text-decoration: none;
+}

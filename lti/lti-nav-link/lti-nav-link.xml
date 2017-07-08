@@ -1,21 +1,13 @@
 <cartridge_basiclti_link xmlns="http://www.imsglobal.org/xsd/imslticc_v1p0" xmlns:blti="http://www.imsglobal.org/xsd/imsbasiclti_v1p0" xmlns:lticm="http://www.imsglobal.org/xsd/imslticm_v1p0" xmlns:lticp="http://www.imsglobal.org/xsd/imslticp_v1p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imslticc_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticc_v1p0.xsd http://www.imsglobal.org/xsd/imsbasiclti_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imsbasiclti_v1p0p1.xsd http://www.imsglobal.org/xsd/imslticm_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticm_v1p0.xsd http://www.imsglobal.org/xsd/imslticp_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticp_v1p0.xsd">
-  <blti:title>Nav Button</blti:title>
-  <blti:description>Additional Global Nav Line-Item</blti:description>
+  <blti:title>Nav Button</blti:title>                                 <!-- lti-title -->
+  <blti:description></blti:description>                               <!-- lti-description -->
   <blti:extensions platform="canvas.instructure.com">
     <lticm:options name="global_navigation">
-    <!--<lticm:property name="windowTarget">_blank</lticm:property>-->
-    <lticm:property name="icon_svg_path_64">M26.461,45.766c-0.056,0.062-0.096,0.131-0.155,0.19l-8.349,8.37c-2.306,2.311-6.043,2.311-8.349,0
-				c-2.305-2.311-2.305-6.059,0-8.37l8.349-8.37c0.018-0.018,0.041-0.029,0.059-0.049l7.187-7.187
-				c-3.943-1.062-8.326-0.052-11.421,3.05L5.433,41.77c-4.611,4.623-4.611,12.119,0,16.74c4.611,4.623,12.087,4.623,16.697,0
-				l8.349-8.369c3.091-3.101,4.1-7.49,3.044-11.44L26.461,45.766z M58.48,5.401c-4.61-4.623-12.086-4.623-16.696,0l-8.349,8.37
-				c-3.083,3.09-4.094,7.462-3.055,11.403l7.221-7.221l0.006,0.006c0.002-0.001,0.002-0.002,0.002-0.002l8.35-8.37
-				c2.305-2.311,6.043-2.311,8.35,0c2.305,2.311,2.305,6.059,0,8.37l-8.35,8.37c-0.098,0.098-0.211,0.167-0.312,0.256l-6.971,6.97
-				c3.953,1.078,8.354,0.071,11.457-3.041l8.35-8.37C63.091,17.518,63.091,10.023,58.48,5.401z M42,19
-				c-0.868,0-1.645,0.374-2.191,0.964L19.964,39.809C19.375,40.355,19,41.132,19,42c0,1.657,1.343,3,3,3
-				c0.836,0,1.591-0.344,2.135-0.896l0.009,0.01l20-20l-0.01-0.009C44.669,23.563,45,22.82,45,22C45,20.343,43.657,19,42,19z
+    <lticm:property name="privacy_level">anonymous</lticm:property>   <!-- launch-privacy: [anonymous | name_only | public] -->
+    <lticm:property name="tool_id">lti_x0000001</lticm:property>      <!-- tool-id -- unique_id used to track app stats -->
+    <lticm:property name="icon_svg_path_64">M43.5978791,0.994 C38.1625177,0.994 33.0383299,3.11986904 29.2024595,6.95573945 L9.57234181,26.5858571 C9.02560668,27.1325923 8.71734113,27.8770827 8.71734113,28.639022 L8.71734113,52.1602653 L0.847845061,60.0297613 C-0.27761502,61.1552214 -0.27761502,63.0106311 0.847845061,64.1389993 C1.41202918,64.7031834 2.15651957,64.994 2.90100996,64.994 C3.64550035,64.994 4.39289891,64.7031834 4.95417486,64.1389993 L12.8236709,56.2695032 L36.3449142,56.2695032 C37.1272107,56.2695032 37.8542521,55.9612377 38.3980791,55.4145026 L57.9932988,35.7494869 C61.8466182,31.8961675 63.9550382,26.7894287 63.9550382,21.3540673 C63.9724872,10.1198236 54.8292146,0.996908166 43.5978791,0.996908166 L43.5978791,0.994 Z M35.1438418,50.4502639 L18.6574511,50.4502639 L24.4737823,44.6339327 L40.942724,44.6339327 L35.1438418,50.4502639 Z M53.8840608,31.6373408 C53.8840608,31.6373408 53.8840608,31.6373408 53.8840608,31.6373408 L46.721249,38.8176016 C46.6485448,38.8176016 46.5932897,38.8176016 46.5205856,38.8176016 L30.2726644,38.8176016 L45.668493,23.421773 C46.7939531,22.2963129 46.7939531,20.4409033 45.668493,19.312535 C44.543033,18.1841668 42.6876233,18.1870749 41.5592551,19.312535 L14.5307641,46.3410259 L14.5307641,29.8546353 L33.3058811,11.0620693 C36.0511895,8.31676094 39.7038454,6.81033117 43.5920628,6.81033117 C51.6069672,6.81033117 58.1503397,13.3362547 58.1503397,21.3686081 C58.1503397,25.2393765 56.6235528,28.8920324 53.8782445,31.6373408 L53.8840608,31.6373408 Z
     </lticm:property>
-    <lticm:property name="text">Wikipedia</lticm:property> <!-- nav-text -->
-    <lticm:property name="url">https://wikipedia.org</lticm:property> <!-- nav-url --> 
+    <lticm:property name="text">LMS Tools</lticm:property>              <!-- nav-text -->
+    <lticm:property name="url">https://wikipedia.org</lticm:property>   <!-- nav-url (will open as an iframe)--> 
   </blti:extensions>
 </cartridge_basiclti_link>
-

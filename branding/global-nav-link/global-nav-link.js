@@ -1,22 +1,22 @@
 // - JQuery is used throughout Canvas -- this adds a global-nav link - 
 
-function addMenuItem (link-text, url, icon, target) {    
-  var icon-html = '',    
-  item-html,    
-  link-id = link-text.split(' ').join('_'),  
+function addMenuItem (linkText, url, icon, target) {    
+  var iconHtml = '',    
+  itemHtml,    
+  linkId = linkText.split(' ').join('_'),  
   newtab = '';  
   if (typeof target !== 'undefined') {  
-    newtab = 'target="' + target + '"';  
+    newTab = 'target="' + target + '"';  
   }  else{
-    window.open("url","_self")
+    window.open("url", "_self")
   }
   if (icon !== '') {
-    icon-html = '<i class="' + icon + '" style="display: block; width: 100%; height: 25px;"></i> ';  
+    iconHtml = '<i class="ic-icon-svg ' + icon.toLowerCase() + '"></i>';  
   }    
-  item-html = '<li class="ic-app-header__menu-list-item "><a id="global_nav_' + link-id + '" href="' + url + '" class="ic-app-header__menu-list-link" target="_new"><div class="menu-item__text">' + icon-html + link-text + '</div></a></li>';
+  itemHtml = '<li class="menu-item ic-app-header__menu-list-item"><a id="global_nav_' + linkId.toLowerCase() + '" href="' + url + '" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true">'+ iconHtml + '</div><div class="menu-item__text">' + linkText + '</div></a></li>';
 
-  $('#menu li:eq(2)').after(item-html); // this adds the icon after the 3rd list-item, will need to be edited based on needs
+  $('#menu li:eq(2)').after(itemHtml); // this adds the icon after the 3rd list-item, will need to be edited based on needs
 }
 $(document).ready(function(){    
-  addMenuItem('Library', 'https://google.com/', 'icon-collection','_self');  
+  addMenuItem('Icons', 'http://instructure.github.io/instructure-icons/#Font', 'icon-image', '_self');
 });

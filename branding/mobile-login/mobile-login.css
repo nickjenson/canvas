@@ -1,19 +1,35 @@
-/* - This stylizes the mobile login screen, as this is not currently available via the Theme Editor - */
-/* - Override Mobile Background Pattern - */
-html {
-    background-image: none;
-    background-color: #003359;
+/* mobile only - overrides default Canvas background with Wharton background graphic (absolute path to logo file) */
+body:not([class]){
+	color:#fff;
+	background-color: #004785;
+    background-image: url("");
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+	background-position:center;
+	background-repeat:no-repeat;
 }
 
-/* - Display Logo - */
+/* mobile only - overrides default Canvas logo with institution logo (absolute path to logo file) */
+.mobileLogin-Header{
+	background-image: url("");
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    min-height: 156px;
+}
+
+/* mobile only - ensure that errors are visible on your custom background */
+#login_form .error{
+	color:#fff;
+	background-color: #EE0612;
+}
+
+/* mobile only (optional) - optional mobile-specific tag to target */
 #f1_container {
-    background: url("") no-repeat center top;
-    background-size: 100% auto;
-    width: 302px;
-}
 
-/* - Forgot Password Link (optional)- */
+}
+/* mobile only (optional) - forgot password link */
 #f1_container a {
     color: white;
-    text-decoration: none;
 }

@@ -1,1 +1,11 @@
-course_id,short_name,long_name,account_id,term_id,status,start_date,end_date,course_format,blueprint_course_idA00215,STAT215,Statistics,A002,201408,active,,,on_campus,A00210B00300,ACCT300,Cost Accounting,B002,201408,active,,,online,B00310,ACCT310,Managerial Accounting,B002,201408,active,,,blended,A00462,PHY462,Nuclear Physics,A003,201408,active,,,on_campus,B00220,MKTG220,Marketing,B003,201408,active,,,on_campus,B00301,MKTG300,Market Research,B003,201408,active,,,on_campus,B00211,ECN211,Macro Economics,B020,201408,active,,,online,B00212,ECN212,Micro Economics,B020,201408,active,,,online,A00101,BIO101,Intro to Biology,A008,201408,active,,,blended,B00235,CIS235,Intro to Information Systems,B080,201408,active,,,blended,
+canvas_course_id,course_id,short_name,long_name,account_id,term_id,status,start_date,end_date,course_format,blueprint_course_id
+1,A00215,STAT215,Statistics,A002,201408,active,,,on_campus,A00210
+2,B00300,ACCT300,Cost Accounting,B002,201408,active,,,online,
+3,B00310,ACCT310,Managerial Accounting,B002,201408,active,,,blended,
+4,A00462,PHY462,Nuclear Physics,A003,201408,active,,,on_campus,
+5,B00220,MKTG220,Marketing,B003,201408,active,,,on_campus,
+6,B00301,MKTG300,Market Research,B003,201408,active,,,on_campus,
+7,B00211,ECN211,Macro Economics,B020,201408,active,,,online,
+8,B00212,ECN212,Micro Economics,B020,201408,active,,,online,
+9,A00101,BIO101,Intro to Biology,A008,201408,active,,,blended,
+10,B00235,CIS235,Intro to Information Systems,B080,201408,active,,,blended,

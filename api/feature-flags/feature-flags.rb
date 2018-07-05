@@ -18,11 +18,11 @@ raise "Error: The token, domain, or env variables are not set correctly" unless 
 CSV.foreach(csv, {:headers => true}) do |row|
   url = "#{base_url}/api/v1/courses/#{row['canvas_course_id']}/features/flags/#{feature}?status=#{status}"
 
-  create_user = Typhoeus.post(url, headers: { :authorization => 'Bearer ' + token })
+  update_flag = Typhoeus.post(url, headers: { :authorization => 'Bearer ' + token })
 
-  if create_user.code == 200    #aw hell ya
+  if update_flag.code == 200    #aw hell ya
     puts "Course #{row['canvas_course_id']} has feature flag now nabled."
-  elsif create_user.code == 400 #aw hell no - check the url, domain or token
+  elsif update_flag.code == 400 #aw hell no - check the url, domain or token
     puts "Error: 400 - that's a bad request for #{row['canvas_course_id']}."
   else
     puts "Course #{row['canvas_course_id']} had failed to enable feature flag."

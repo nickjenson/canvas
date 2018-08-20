@@ -6,7 +6,7 @@ domain = ''           # ex. 'domain' in 'https://domain.instructure.com'
 token = ''            # api token for account admin user
 feature = ''          # ex. new_gradebook
 status = 'on'         # use 'off' to disable feature
-csv = 'courses.csv'   # this should contain a canvas_course_id header
+csv = 'courses.csv'   # this should contain a canvas_course_id header - use a provisioning report
 #================
 base_url = "https://#{domain}.instructure.com"
 test_url = "#{base_url}/accounts/self"
@@ -21,11 +21,11 @@ CSV.foreach(csv, {:headers => true}) do |row|
   update_flag = Typhoeus.post(url, headers: { :authorization => 'Bearer ' + token })
 
   if update_flag.code == 200    #aw hell ya
-    puts "Course #{row['canvas_course_id']} has feature flag now nabled."
+    puts "Course #{row['canvas_course_id']} had successfully changed the feature flag status to #{status}"
   elsif update_flag.code == 400 #aw hell no - check the url, domain or token
     puts "Error: 400 - that's a bad request for #{row['canvas_course_id']}."
   else
-    puts "Course #{row['canvas_course_id']} had failed to enable feature flag."
+    puts "Error: Course #{row['canvas_course_id']} had failed to change feature flag status."
     puts "Moving right along..." #aw hell no - something else is up
   end
 end

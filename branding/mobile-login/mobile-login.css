@@ -33,5 +33,10 @@ body:not([class]){
 
 /* Mobile - forgot password link */
 #f1_container a {
+<<<<<<< HEAD
     color: var(--text-color)
 }
+=======
+    color: white;
+}
+>>>>>>> 342320d87b834470c2c1748bea4d91e0536d2d43

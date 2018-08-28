@@ -1,4 +1,4 @@
-/* mobile only - overrides default Canvas background with Wharton background graphic (absolute path to logo file) */
+/* mobile only - overrides default Canvas background background graphic (absolute path to logo file) */
 body:not([class]){
 	color:#fff;
 	background-color: #004785;

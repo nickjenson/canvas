@@ -1,35 +1,37 @@
-/* mobile only - overrides default Canvas background with Wharton background graphic (absolute path to logo file) */
+
+:root {
+    --background-color: #006ec7;
+    --error-color: #EE0612;
+    --text-color:#fff
+}
+/* Mobile - overrides default Canvas background */
 body:not([class]){
-	color:#fff;
-	background-color: #004785;
+	color:var(--text-color);
+	background-color: var(--background-color);
     background-image: url("");
     background-size: cover;
     background-attachment: fixed;
     height: 100vh;
-	background-position:center;
-	background-repeat:no-repeat;
+    background-position:center;
+	background-repeat:no-repeat
 }
 
-/* mobile only - overrides default Canvas logo with institution logo (absolute path to logo file) */
+/* Mobile - overrides default Canvas logo */
 .mobileLogin-Header{
 	background-image: url("");
 	background-position: center;
     background-repeat: no-repeat;
     background-size: 60%;
-    min-height: 156px;
+    min-height: 156px
 }
 
-/* mobile only - ensure that errors are visible on your custom background */
+/* Mobile - ensures visible error on custom background */
 #login_form .error{
-	color:#fff;
-	background-color: #EE0612;
+	color: var(--text-color);
+	background-color: var(--error-color)
 }
 
-/* mobile only (optional) - optional mobile-specific tag to target */
-#f1_container {
-
-}
-/* mobile only (optional) - forgot password link */
+/* Mobile - forgot password link */
 #f1_container a {
-    color: white;
+    color: var(--text-color)
 }

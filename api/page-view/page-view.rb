@@ -2,11 +2,9 @@ require "slop"
 require "yaml"
 require "bearcat"
 require "csv"
-require "json"
-require "byebug"
 
 env = ""
-version= "0.0.1"
+version = "0.0.2"
 script = "page-view.rb"
 
 options = {}
@@ -29,31 +27,6 @@ url = "https://#{opts[:domain]}.#{env}instructure.com"
 
 user_id = opts[:user]
 
-def fetch_user(url, opts, user_id)
-  puts 'Fetching user page views...'
-
-  client = Bearcat::Client.new(token: opts[:token], prefix: url)
-  page_views = client.page_views(user_id).all_pages!.to_a
-
-  if page_views.nil?
-    raise "Nope"
-  end
-  to_csv(page_views, opts, user_id)
-end
-
-def to_csv(page_views, opts, user_id)
-  puts "Writing to csv..."
-
-  CSV.open("#{opts[:domain]}_user-#{user_id}.csv", "w") do |csv|
-    page_views.each do |row|
-      csv << row.values
-    end
-  end
-
-end 
-fetch_user(url, opts, user_id)
-
-
 # unless File.directory?(opts[:client]).nil? do |yaml|
 #   #todo optional client.yaml
 #   # if File.exists?("#{opts[:client]}.yaml")
@@ -69,3 +42,30 @@ fetch_user(url, opts, user_id)
 # raise "Error: user" unless opts[:user].match(/^\d+$/)
 # raise "Error: token" unless opts[:token].match(/^(\d{2,}+~)+\d{10,}+$/)
 # raise "Error: start date required" unless opts[:start].match(/^\d\{1,2}\-\d\{1,2}\-\d\{4}/)
+
+
+def fetch_user(url, opts, user_id)
+  puts "Fetching user page views..."
+
+  client = Bearcat::Client.new(token: opts[:token], prefix: url)
+  page_views = client.page_views(user_id).all_pages!.to_a
+
+  if page_views.nil?
+    raise "Nope"
+  end
+  to_csv(page_views, opts, user_id)
+end
+
+def to_csv(page_views, opts, user_id)
+  puts "Writing to csv..."
+  response = page_views.first
+
+  CSV.open("#{opts[:domain]}_user-#{user_id}.csv", "wb") do |csv|
+      csv << response.keys
+
+    page_views.each do |column|
+      csv << column.values
+    end
+  end
+end 
+fetch_user(url, opts, user_id)

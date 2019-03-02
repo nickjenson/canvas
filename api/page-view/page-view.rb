@@ -3,14 +3,14 @@ require "yaml"
 require "bearcat"
 require "csv"
 
-env = "beta"
+env = ""
 version = "0.0.3"
 script = "page-view.rb"
 
 opts = Slop.parse do |opts|
   opts.banner  = "Usage: script.rb [options]"
   opts.string "-t", "--token", "api token"
-  opts.string "-u", "--user", "canvas user"
+  opts.int "-u", "--user", "canvas user"
   opts.string "-d", "--domain", "domain"
   opts.string "-s", "--start", "start date"
   opts.string "-e", "--end", "end date"
@@ -26,14 +26,16 @@ end
 
 env != "" ? env << "." : env
 url = "https://#{opts[:domain]}.#{env}instructure.com"
-path = "#{opts[:client]}/#{opts[:client]}.yaml"
 
-# raise "Error: only provide the subdomain - (ex. example for example.instructure.com)" unless opts[:domain].match(/^[\w\-]+$/)
-# raise "Error: user" unless opts[:user].match(/^\d+$/)
-# raise "Error: token" unless opts[:token].match(/^(\d{1,}+~)+\d{10,}+$/)
-# raise "Error: start date required" unless opts[:start].match(/^\d\{1,2}\-\d\{1,2}\-\d\{4}/)
+raise "Error: Missing one or more required fields" if [opts[:domain], opts[:token], opts[:user], opts[:start]].any?(&:nil?)
 
-def fetch_user(url, opts)
+unless (opts[:start] || opts[:end]).match(/^\d\{1,2}\-\d\{1,2}\-\d\{4}/)
+ raise "Error: Date format invalid"
+end
+
+# TODO raise "Error: invalid domain or token" unless response.code == 200
+
+def fetch_sessions(url, opts)
   puts "Fetching user sessions..."
   client = Bearcat::Client.new(token: opts[:token], prefix: url)
   page_views = client.page_views(opts[:user]).all_pages!.to_a
@@ -42,10 +44,10 @@ def fetch_user(url, opts)
   page_views.each do |session|
    sessions << session['session_id']
   end
-  fetch_sessions(page_views, opts)
+  map_sessions(page_views, opts)
 end
 
-def fetch_sessions(page_views, opts)
+def map_sessions(page_views, opts)
   puts "Mapping user sessions..."
   user_sessions = []
 
@@ -80,4 +82,4 @@ def to_csv(user_sessions, opts)
     end
   end
 end 
-fetch_user(url, opts)
+fetch_sessions(url, opts)

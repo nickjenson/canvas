@@ -4,13 +4,13 @@ require "bearcat"
 require "csv"
 
 env = ""
-version = "0.0.3"
+version = "1.0.0"
 script = "page-view.rb"
 
 opts = Slop.parse do |opts|
   opts.banner  = "Usage: script.rb [options]"
   opts.string "-t", "--token", "api token"
-  opts.int "-u", "--user", "canvas user"
+  opts.string "-u", "--user", "canvas user"
   opts.string "-d", "--domain", "domain"
   opts.string "-s", "--start", "start date"
   opts.string "-e", "--end", "end date"
@@ -29,33 +29,26 @@ url = "https://#{opts[:domain]}.#{env}instructure.com"
 
 raise "Error: Missing one or more required fields" if [opts[:domain], opts[:token], opts[:user], opts[:start]].any?(&:nil?)
 
-unless (opts[:start] || opts[:end]).match(/^\d\{1,2}\-\d\{1,2}\-\d\{4}/)
- raise "Error: Date format invalid"
+unless (opts[:start] || opts[:end]).match(/^\d{4}-\d{2}-\d{2}$/)
+  raise "Error: Date format invalid"
 end
-
-# TODO raise "Error: invalid domain or token" unless response.code == 200
 
 def fetch_sessions(url, opts)
   puts "Fetching user sessions..."
   client = Bearcat::Client.new(token: opts[:token], prefix: url)
-  page_views = client.page_views(opts[:user]).all_pages!.to_a
-
-  sessions = []
-  page_views.each do |session|
-   sessions << session['session_id']
-  end
-  map_sessions(page_views, opts)
+  user_sessions = client.page_views(opts[:user], {:start_time=>opts[:start],:end_time=>opts[:end]}).all_pages!.to_a
+  map_sessions(user_sessions, client, opts)
 end
 
-def map_sessions(page_views, opts)
+def map_sessions(user_sessions, client, opts)
   puts "Mapping user sessions..."
-  user_sessions = []
+  sessions = []
 
-  session = {}
-  page_views.each do |id|
+  user_sessions.each do |id|
+    session = {}
     session[:session_id]          = id["session_id"]
     session[:url]                 = id["url"]
-    session[:context_type]        = id["context_type"]
+    session[:conteodt_type]        =id["context_type"]
     session[:interaction_seconds] = id["interaction_seconds"]
     session[:created_at]          = id["created_at"]
     session[:updated_at]          = id["updated_at"]
@@ -65,19 +58,18 @@ def map_sessions(page_views, opts)
     session[:http_method]         = id["http_method"]
     session[:remote_ip]           = id["remote_ip"]
     session[:id]                  = id["id"]
-    end
-    user_sessions << session
-
-  to_csv(user_sessions, opts)
+    sessions << session
+  end
+  to_csv(sessions, opts)
 end
 
-def to_csv(user_sessions, opts)
+def to_csv(sessions, opts)
   puts "Writing to csv..."
-  response = user_sessions.first
+  response = sessions.first
 
   CSV.open("#{opts[:domain]}_user-#{opts[:user]}.csv", "wb") do |csv|
       csv << response.keys
-    user_sessions.each do |column|
+    sessions.each do |column|
       csv << column.values
     end
   end

@@ -36,40 +36,40 @@ end
 def fetch_sessions(url, opts)
   puts "Fetching user sessions..."
   client = Bearcat::Client.new(token: opts[:token], prefix: url)
-  user_sessions = client.page_views(opts[:user], {:start_time=>opts[:start],:end_time=>opts[:end]}).all_pages!.to_a
-  map_sessions(user_sessions, client, opts)
+  page_views = client.page_views(opts[:user], {:start_time=>opts[:start],:end_time=>opts[:end]}).all_pages!.to_a
+  map_requests(page_views, opts)
 end
 
-def map_sessions(user_sessions, client, opts)
-  puts "Mapping user sessions..."
-  sessions = []
+def map_requests(page_views, opts)
+  puts "Mapping user requests..."
+  requests = []
 
-  user_sessions.each do |id|
-    session = {}
-    session[:session_id]          = id["session_id"]
-    session[:url]                 = id["url"]
-    session[:conteodt_type]        =id["context_type"]
-    session[:interaction_seconds] = id["interaction_seconds"]
-    session[:created_at]          = id["created_at"]
-    session[:updated_at]          = id["updated_at"]
-    session[:render_time]         = id["render_time"]
-    session[:user_agent]          = id["user_agent"]
-    session[:participated]        = id["participated"]
-    session[:http_method]         = id["http_method"]
-    session[:remote_ip]           = id["remote_ip"]
-    session[:id]                  = id["id"]
-    sessions << session
+  page_views.each do |id|
+    request = {}
+    request[:session_id]          = id["session_id"]
+    request[:url]                 = id["url"]
+    request[:context_type]        = id["context_type"]
+    request[:interaction_seconds] = id["interaction_seconds"]
+    request[:created_at]          = id["created_at"]
+    request[:updated_at]          = id["updated_at"]
+    request[:render_time]         = id["render_time"]
+    request[:user_agent]          = id["user_agent"]
+    request[:participated]        = id["participated"]
+    request[:http_method]         = id["http_method"]
+    request[:remote_ip]           = id["remote_ip"]
+    request[:id]                  = id["id"]
+    requests << request
   end
-  to_csv(sessions, opts)
+  to_csv(requests, opts)
 end
 
-def to_csv(sessions, opts)
+def to_csv(requests, opts)
   puts "Writing to csv..."
-  response = sessions.first
+  response = requests.first
 
   CSV.open("#{opts[:domain]}_user-#{opts[:user]}.csv", "wb") do |csv|
-      csv << response.keys
-    sessions.each do |column|
+    csv << response.keys
+    requests.each do |column|
       csv << column.values
     end
   end

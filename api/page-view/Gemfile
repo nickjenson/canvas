@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+ruby '>=2.5'
+gem 'bearcat'
+gem 'slop','>=4.6.2'
+gem 'yaml'
+gem 'csv'

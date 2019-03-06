@@ -15,7 +15,7 @@ Slop.parse do |opts|
   opts.string '-s', '--start', 'start date'
   opts.string '-e', '--end', 'end date'
   opts.string '-c', '--client', 'client.yaml' do
-    yaml = "#{client}/#{client}.yaml"
+    yaml = "#{opts[:client]}/#{opts[:client]}.yaml"
     opts = load_file(yaml)
     raise 'Client does not exist!' unless File.exist?(yaml)
   end

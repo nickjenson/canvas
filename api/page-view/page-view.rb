@@ -70,7 +70,7 @@ def to_csv(sessions, opts)
   puts 'Writing to csv...'
   response = sessions.first
 
-  CSV.open("#{opts[:domain]}_user-#{opts[:user]}.csv", 'wb') do |csv|
+  CSV.open("u#{opts[:user]}-pageviews-#{opts[:domain]}.csv", 'wb') do |csv|
     csv << response.keys
     sessions.each do |column|
       csv << column.values

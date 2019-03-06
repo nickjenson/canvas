@@ -7,8 +7,8 @@ env = ''
 version = '1.0.0'
 script = 'page-view.rb'
 
-Slop.parse do |opts|
-  opts.banner 'Usage: script.rb [options]'
+opts = Slop.parse do |opts|
+  opts.banner = 'Usage: script.rb [options]'
   opts.string '-t', '--token', 'api token'
   opts.string '-u', '--user', 'canvas user'
   opts.string '-d', '--domain', 'domain'

@@ -2,6 +2,7 @@ require 'slop'
 require 'yaml'
 require 'bearcat'
 require 'ruby-progressbar'
+require 'rubocop'
 require 'csv'
 
 env = ''
@@ -34,20 +35,20 @@ def fetch_users(url, opts)
   puts 'Fetching users...'
   client = Bearcat::Client.new(token: opts[:token], prefix: url)
   all_users = client.list_users('self').all_pages!.to_a
-  user_ids = []
+  users = []
 
   all_users.each do |user|
-    user_ids << user['id']
+    users << user['id']
   end
-  fetch_avatar_urls(client, user_ids, opts)
+  fetch_avatars(client, users, opts)
 end
 
-def fetch_avatar_urls(client, user_ids, opts)
-  puts "Mapping user avatars..."
-  progressbar = ProgressBar.create(format: '%e <%B> %p%% %t', total: user_ids.count)
-  users_with_avatars = []
+def fetch_avatars(client, users, opts)
+  puts 'Mapping user avatars...'
+  progress = ProgressBar.create(format: '%e <%B> %p%% %t', total: users.count)
+  user_avatars = []
 
-  user_ids.each do |id|
+  users.each do |id|
     id = client.user_profile(id)
     user = {}
     user[:id]          = id['id']
@@ -55,19 +56,19 @@ def fetch_avatar_urls(client, user_ids, opts)
     user[:short_name]  = id['short_name']
     user[:sis_user_id] = id['sis_user_id']
     user[:avatar_url]  = id['avatar_url']
-    users_with_avatars << user
-    progressbar.increment
+    user_avatars << user
+    progress.increment
   end
-  print_to_csv(users_with_avatars, opts)
+  to_csv(user_avatars, opts)
 end
 
-def print_to_csv(users_with_avatars, opts)
+def to_csv(user_avatars, opts)
   puts 'Writing to CSV...'
-  response = users_with_avatars.first
+  response = user_avatars.first
 
   CSV.open("#{opts[:domain]}-avatars.csv", 'wb') do |csv|
     csv << response.keys
-    users_with_avatars.each do |column|
+    user_avatars.each do |column|
       csv << column.values
     end
   end

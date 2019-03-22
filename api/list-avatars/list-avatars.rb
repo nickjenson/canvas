@@ -2,7 +2,6 @@ require 'slop'
 require 'yaml'
 require 'bearcat'
 require 'ruby-progressbar'
-require 'rubocop'
 require 'csv'
 
 env = ''
@@ -28,7 +27,7 @@ env != '' ? env << '.' : env
 url = "https://#{opts[:domain]}.#{env}instructure.com"
 
 if [opts[:domain], opts[:token]].any?(&:nil?)
-  raise 'Error: Missing one or more required fields'
+  raise 'Error: Missing one or more required fields. Use -h for help.'
 end
 
 def fetch_users(url, opts)

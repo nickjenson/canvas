@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+gem 'bearcat'
+gem 'ruby-progressbar'
+gem 'slop','>=4.6.2'
+gem 'yaml'
+gem 'csv'

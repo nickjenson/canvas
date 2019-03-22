@@ -29,7 +29,7 @@ env != '' ? env << '.' : env
 url = "https://#{opts[:domain]}.#{env}instructure.com"
 
 if [opts[:domain], opts[:token], opts[:user], opts[:start]].any?(&:nil?)
-  raise 'Error: Missing one or more required fields'
+  raise 'Error: Missing one or more required fields. Use -h for help.'
 end
 
 if (opts[:start] || opts[:end]) !~ /^\d{4}-\d{2}-\d{2}$/

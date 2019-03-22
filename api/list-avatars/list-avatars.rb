@@ -43,37 +43,33 @@ def fetch_users(url, opts)
 end
 
 def fetch_avatar_urls(client, user_ids, opts)
-  progressbar = ProgressBar.create(total: user_ids.count)
+  puts "Mapping user avatars..."
+  progressbar = ProgressBar.create(format: '%e <%B> %p%% %t', total: user_ids.count)
   users_with_avatars = []
 
-  user = {}
   user_ids.each do |id|
     id = client.user_profile(id)
+    user = {}
     user[:id]          = id['id']
     user[:name]        = id['name']
     user[:short_name]  = id['short_name']
     user[:sis_user_id] = id['sis_user_id']
     user[:avatar_url]  = id['avatar_url']
-    users_with_avatars << id
+    users_with_avatars << user
     progressbar.increment
   end
-  puts 'Preparing CSV...'
   print_to_csv(users_with_avatars, opts)
 end
 
 def print_to_csv(users_with_avatars, opts)
-  headers = %w[]
-  CSV.open("./#{opts[:domain]}_avatar-list.csv", 'wb') do |csv|
-  users_with_avatars.each do |user|
-      row = CSV::Row.new(headers, [])
-      row['id']              = user['id']
-      row['name']            = user['name']
-      row['short_name']      = user['short_name']
-      row['sis_user_id']     = user['sis_user_id']
-      row['avatar_url']      = user['avatar_url']
-      csv << row
+  puts 'Writing to CSV...'
+  response = users_with_avatars.first
+
+  CSV.open("#{opts[:domain]}-avatars.csv", 'wb') do |csv|
+    csv << response.keys
+    users_with_avatars.each do |column|
+      csv << column.values
     end
   end
-  puts 'Done'
 end
 fetch_users(url, opts)

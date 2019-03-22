@@ -5,7 +5,7 @@ require 'ruby-progressbar'
 require 'csv'
 
 env = ''
-version = '0.0.2'
+version = '1.0.3'
 script = 'list-avatars.rb'
 
 opts = Slop.parse do |opts|
